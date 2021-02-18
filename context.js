@@ -5,37 +5,39 @@ const context = async () => {
     {
       type: 'input',
       name: 'date',
-      message: 'Enter date: '
+      message: 'Enter date:'
     },
     {
-      type: 'input',
+      type: 'number',
       name: 'time',
-      message: 'Enter time: '
+      message: 'Enter time:'
     },
     {
       type: 'list',
       name: 'operation_type',
-      message: 'Operation type: ',
+      message: 'Operation type:',
       choices: ['Operated', 'Passenger', 'Parked', 'Walked at']
     },
     {
       type: 'input',
       name: 'street',
-      message: 'Street name: '
+      message: 'Street name:'
     },
     {
       type: 'input',
       name: 'direction',
-      message: 'Direction: '
+      message: 'Direction:'
     },
     {
       type: 'input',
       name: 'at',
-      message: 'At/near: '
+      message: 'At/near:'
     }
   ]
 
-  const statements = await inquirer.prompt(questions).then(async answers => {
+  console.log('Information:\n')
+
+  return inquirer.prompt(questions).then(async answers => {
     let vehicleType, license, vehicle
     const statements = []
 
@@ -81,19 +83,18 @@ const context = async () => {
 
     statements.push(
       `ON ${answers.date} AT ${answers.time}`,
-      `SUBJECT ${answers.operation_type} ${vehicleType}`,
+      `SUBJECT ${answers.operation_type}${
+        vehicleType ? ' ' + vehicleType : ''
+      }`,
       `UPON A PUBLIC HIGHWAY, NAMELY ${answers.street} DIRECTION ${answers.direction}`,
       `AT/NEAR ${answers.at}`
     )
 
-    if (answers.operation_type !== 'Walked at')
+    if (answers.operation_type !== 'Walked at') {
       statements.splice(2, 0, `VEHICLE: ${vehicle} LIC# ${license}`)
+    }
 
     return statements
-  })
-
-  statements.map(statement => {
-    console.log(statement)
   })
 }
 
