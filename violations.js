@@ -112,7 +112,7 @@ const violations = async () => {
         }
 
         statements.push(
-          `⬛ SPEED: ${answers.amount} MPH in ${answers.limit} MPH zone; PC${violationCode}`,
+          `SPEED: ${answers.amount} MPH in ${answers.limit} MPH zone; PC${violationCode}`,
           `${answers.speed_type}`,
           `${answers.capture_type} ${answers.motion_type}`,
           '\n\n'
@@ -142,7 +142,7 @@ const violations = async () => {
         }
 
         statements.push(
-          `⬛ DRIVER LICENSE: ${answers.violation_type}; PC${violationCode}`,
+          `DRIVER LICENSE: ${answers.violation_type}; PC${violationCode}`,
           '\n\n'
         )
       })
@@ -150,7 +150,7 @@ const violations = async () => {
 
     if (answers.other) {
       await inquirer.prompt(otherQuestions).then(answers => {
-        statements.push(`⬛ OTHER OFFENSE: ${answers.violations}`, '\n\n')
+        statements.push(`OTHER OFFENSE: ${answers.violations}`, '\n\n')
       })
     }
 
